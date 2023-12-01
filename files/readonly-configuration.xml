@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_60" class="java.beans.XMLDecoder">
+ <object class="org.opengrok.indexer.configuration.Configuration" id="Configuration0">
+
+  <void property="pluginDirectory">
+   <string>/opengrok/dist/share/lib</string>
+  </void>
+
+  <void property="pluginStack">
+        <void property="stack">
+            <!-- get user cred from HTTP headers -->
+            <void method="add">
+                <object class="org.opengrok.indexer.authorization.AuthorizationPlugin">
+                    <void property="name">
+                        <string>opengrok.auth.plugin.UserPlugin</string>
+                    </void>
+                    <void property="flag">
+                        <string>REQUISITE</string>
+                    </void>
+                    <void property="setup">
+                        <void method="put">
+                             <string>decoder</string>
+                             <string>opengrok.auth.plugin.decoders.UserPrincipalDecoder</string>
+                        </void>
+                    </void>
+                </object>
+            </void>
+
+            <void method="add">
+                <object class="org.opengrok.indexer.authorization.AuthorizationPlugin">
+                    <void property="forProjects">
+                            <void method="add">
+                                <string>foo</string>
+                            </void>
+                    </void>
+                    <void property="name">
+                        <string>opengrok.auth.plugin.UserWhiteListPlugin</string>
+                    </void>
+                    <void property="flag">
+                        <string>REQUIRED</string>
+                    </void>
+                    <void property="setup">
+                        <void method="put">
+                             <string>file</string>
+                             <string>/opengrok/etc/foo-whitelist.txt</string>
+                        </void>
+                    </void>
+                </object>
+            </void>
+
+            <void method="add">
+                <object class="org.opengrok.indexer.authorization.AuthorizationPlugin">
+                    <void property="forProjects">
+                            <void method="add">
+                                <string>bar</string>
+                            </void>
+                    </void>
+                    <void property="name">
+                        <string>opengrok.auth.plugin.UserWhiteListPlugin</string>
+                    </void>
+                    <void property="flag">
+                        <string>REQUIRED</string>
+                    </void>
+                    <void property="setup">
+                        <void method="put">
+                             <string>file</string>
+                             <string>/opengrok/etc/bar-whitelist.txt</string>
+                        </void>
+                    </void>
+                </object>
+            </void>
+        </void>
+  </void>
+ </object>
+</java>
